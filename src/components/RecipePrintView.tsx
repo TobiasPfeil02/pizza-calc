@@ -94,6 +94,19 @@ export function RecipePrintView({ state, result }: Props) {
       <p className="border-t border-gray-200 pt-4 text-xs text-gray-400">
         {t.yeastNote}
       </p>
+
+      {/* Mixing instructions — first FAQ item only */}
+      <div className="mt-6 border-t border-gray-200 pt-4">
+        <h2 className="mb-2 text-xs font-semibold uppercase tracking-widest text-gray-400">
+          {t.instructionsTitle}
+        </h2>
+        <h3 className="mb-1 text-sm font-semibold">{t.faq[0].q}</h3>
+        {t.faq[0].a.split("\n\n").map((para, j) => (
+          <p key={j} className={`text-xs leading-relaxed text-gray-600 ${j > 0 ? "mt-1.5" : ""}`}>
+            {para}
+          </p>
+        ))}
+      </div>
     </div>
   );
 }

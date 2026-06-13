@@ -37,13 +37,13 @@ export const DEFAULTS: DoughState = {
 
 export const RANGES = {
   ballsCount:   { min: 1,   max: 50,  step: 1   },
-  ballWeight:   { min: 150, max: 350, step: 5   },
-  waterPercent: { min: 55,  max: 75,  step: 0.5 },
+  ballWeight:   { min: 180, max: 350, step: 5   },
+  waterPercent: { min: 50,  max: 75,  step: 0.5 },
   saltPercent:  { min: 1.5, max: 3.5, step: 0.1 },
-  roomTime:     { min: 0,   max: 48,  step: 0.5 },
-  roomTemp:     { min: 15,  max: 30,  step: 0.5 },
-  fridgeTime:   { min: 0,   max: 72,  step: 1   },
-  fridgeTemp:   { min: 3,   max: 8,   step: 0.5 },
+  roomTime:     { min: 0,   max: 12,  step: 0.25 },
+  roomTemp:     { min: 15,  max: 30,  step: 0.5  },
+  fridgeTime:   { min: 0,   max: 72,  step: 0.25 },
+  fridgeTemp:   { min: 3,   max: 12,   step: 0.5 },
 } as const;
 
 // All tunable constants in one place. See spec Section 3.5.

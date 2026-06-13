@@ -118,7 +118,7 @@ export function ReadyTimeSlider({
         type="range"
         min={sliderMin}
         max={sliderMax}
-        step={0.5}
+        step={0.25}
         value={totalHours}
         onChange={(e) => handleSliderChange(parseFloat(e.target.value))}
         className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-emerald-200 accent-emerald-600"
@@ -129,12 +129,33 @@ export function ReadyTimeSlider({
         aria-valuetext={formatDuration(totalHours)}
       />
 
-      <div className="flex justify-between text-xs text-emerald-700">
-        <span>{formatDuration(sliderMin)}</span>
-        <span>{formatDuration(sliderMax)}</span>
-      </div>
-
-      <p className="text-xs text-emerald-700">{t.prepNote}</p>
+      {/* Timeline bar: fridge (blue) → room temp (amber) */}
+      {totalHours > 0 && (
+        <div className="space-y-1">
+          <div className="flex h-2 w-full overflow-hidden rounded-full">
+            {fridgeTime > 0 && (
+              <div
+                className="bg-blue-300 transition-[width] duration-150"
+                style={{ width: `${(fridgeTime / totalHours) * 100}%` }}
+              />
+            )}
+            {roomTime > 0 && (
+              <div
+                className="bg-amber-300 transition-[width] duration-150"
+                style={{ width: `${(roomTime / totalHours) * 100}%` }}
+              />
+            )}
+          </div>
+          <div className="flex text-xs">
+            {fridgeTime > 0 && (
+              <span className="text-blue-700">{formatDuration(fridgeTime)} {t.fridgeTime}</span>
+            )}
+            {roomTime > 0 && (
+              <span className="ml-auto text-amber-700">{formatDuration(roomTime)} {t.roomTime}</span>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

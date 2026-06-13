@@ -82,8 +82,9 @@ export interface Translations {
   icsEvtTakeOut: string;
   icsEvtReady: string;
 
-  // FAQ
+  // FAQ / Instructions
   faqTitle: string;
+  instructionsTitle: string;
   faq: { q: string; a: string }[];
 
   // Footer
@@ -160,6 +161,7 @@ const en: Translations = {
   icsEvtReady: "Pizza time! 🍕",
 
   faqTitle: "FAQ & Instructions",
+  instructionsTitle: "Instructions",
   faq: [
     {
       q: "How do I mix and develop the dough?",
@@ -261,6 +263,7 @@ const de: Translations = {
   icsEvtReady: "Pizza-Zeit! 🍕",
 
   faqTitle: "FAQ & Anleitung",
+  instructionsTitle: "Anleitung",
   faq: [
     {
       q: "Wie mische und entwickle ich den Teig?",
