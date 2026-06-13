@@ -12,6 +12,34 @@ import { RecipePrintView } from "./RecipePrintView";
 import { PresetsBar } from "./PresetsBar";
 
 const STORAGE_KEY = "pizza-calc-state";
+const START_TIME_KEY = "pizza-calc-start-time";
+
+function formatDatetimeLocal(date: Date): string {
+  const pad = (n: number) => n.toString().padStart(2, "0");
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
+
+function useStartTime() {
+  const [value, setValue] = useState<string>("");
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem(START_TIME_KEY);
+    setValue(saved ?? formatDatetimeLocal(new Date()));
+    setReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!ready) return;
+    if (value === "") {
+      localStorage.removeItem(START_TIME_KEY);
+    } else {
+      localStorage.setItem(START_TIME_KEY, value);
+    }
+  }, [value, ready]);
+
+  return [value, setValue] as const;
+}
 
 type Action =
   | { type: "SET_FIELD"; field: keyof Omit<DoughState, "yeastType">; value: number }
@@ -55,6 +83,7 @@ function usePersistentDoughState() {
 
 export function Calculator() {
   const [state, dispatch] = usePersistentDoughState();
+  const [startTime, setStartTime] = useStartTime();
   const { t } = useLanguage();
 
   const noFermentation = state.roomTime + state.fridgeTime <= 0;
@@ -125,7 +154,9 @@ export function Calculator() {
             <ReadyTimeSlider
               roomTime={state.roomTime}
               fridgeTime={state.fridgeTime}
+              startTime={startTime}
               onFridgeTimeChange={setField("fridgeTime")}
+              onStartTimeChange={setStartTime}
             />
             <SliderInput
               id="roomTime"
@@ -180,7 +211,7 @@ export function Calculator() {
       {/* RIGHT: sticky results */}
       <div className="md:sticky md:top-8 md:self-start">
         <ResultsCard result={result} state={state} noFermentation={noFermentation} />
-        <ExportButtons state={state} result={result} />
+        <ExportButtons state={state} result={result} startTime={startTime} />
         <p className="mt-4 text-xs text-stone-400 leading-relaxed">
           {t.yeastNote}
         </p>

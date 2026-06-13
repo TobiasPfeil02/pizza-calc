@@ -25,6 +25,7 @@ export interface Translations {
 
   // Ready-time slider
   readyIn: string;
+  startTimeLabel: string;
   prepNote: string;
   today: string;
   tomorrow: string;
@@ -105,7 +106,8 @@ const en: Translations = {
   unitBalls: "balls",
 
   readyIn: "Ready in",
-  prepNote: "Includes 45 min preparation · adjusts fridge time",
+  startTimeLabel: "Start time",
+  prepNote: "Adjusts fridge time",
   today: "today",
   tomorrow: "tomorrow",
   at: "at",
@@ -205,7 +207,8 @@ const de: Translations = {
   unitBalls: "Stk.",
 
   readyIn: "Fertig in",
-  prepNote: "Inkl. 45 Min. Vorbereitung · passt Kühlzeit an",
+  startTimeLabel: "Startzeit",
+  prepNote: "Passt Kühlzeit an",
   today: "heute",
   tomorrow: "morgen",
   at: "um",

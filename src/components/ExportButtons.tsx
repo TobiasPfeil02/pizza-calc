@@ -7,16 +7,16 @@ import type { DoughResult, DoughState } from "@/lib/dough";
 interface Props {
   state: DoughState;
   result: DoughResult;
+  startTime: string;
 }
 
-const PREP_HOURS = 45 / 60;
 const EVENT_DURATION_MS = 15 * 60 * 1000; // 15-minute events
 
 function addHours(date: Date, hours: number): Date {
   return new Date(date.getTime() + hours * 3_600_000);
 }
 
-export function ExportButtons({ state, result }: Props) {
+export function ExportButtons({ state, result, startTime }: Props) {
   const { t } = useLanguage();
 
   function handlePrint() {
@@ -24,7 +24,8 @@ export function ExportButtons({ state, result }: Props) {
   }
 
   function handleCalendar() {
-    const now = new Date();
+    const start = startTime !== "" ? new Date(startTime) : new Date();
+    const dtstamp = new Date();
     const uid = () => `pizza-dough-${Date.now()}-${Math.random().toString(36).slice(2)}@pizza-calc`;
 
     const ingredientDesc = [
@@ -35,21 +36,21 @@ export function ExportButtons({ state, result }: Props) {
     ].join("\n");
 
     // Workflow: make dough → fridge immediately → take out roomTime before baking → bake
-    // Timeline: T+0 (start+fridge) · T+fridgeTime (take out) · T+fridgeTime+roomTime+prep (ready)
+    // Timeline: start · start+fridgeTime (take out) · start+fridgeTime+roomTime (pizza time)
     const events: IcsEvent[] = [];
 
     // Event 1: Start dough — goes into fridge straight away
     events.push({
       uid: uid(),
-      start: now,
-      end: new Date(now.getTime() + EVENT_DURATION_MS),
+      start,
+      end: new Date(start.getTime() + EVENT_DURATION_MS),
       summary: t.icsEvtStart,
       description: ingredientDesc,
     });
 
     // Event 2: Take out of fridge — roomTime hours before baking starts
     if (state.fridgeTime > 0) {
-      const takeOut = addHours(now, state.fridgeTime);
+      const takeOut = addHours(start, state.fridgeTime);
       events.push({
         uid: uid(),
         start: takeOut,
@@ -58,8 +59,8 @@ export function ExportButtons({ state, result }: Props) {
       });
     }
 
-    // Event 3: Pizza time — after room-temp rest + 45 min prep
-    const readyTime = addHours(now, state.fridgeTime + state.roomTime + PREP_HOURS);
+    // Event 3: Pizza time — after room-temp rest
+    const readyTime = addHours(start, state.fridgeTime + state.roomTime);
     events.push({
       uid: uid(),
       start: readyTime,
@@ -67,7 +68,7 @@ export function ExportButtons({ state, result }: Props) {
       summary: t.icsEvtReady,
     });
 
-    downloadIcs(generateIcs(events, now), "pizza-dough.ics");
+    downloadIcs(generateIcs(events, dtstamp), "pizza-dough.ics");
   }
 
   return (
