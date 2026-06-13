@@ -1,6 +1,6 @@
 "use client";
 
-import { useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { calculateDough, clamp, DEFAULTS, RANGES, type DoughState, type YeastType } from "@/lib/dough";
 import { useLanguage } from "@/context/LanguageContext";
 import { SliderInput } from "./SliderInput";
@@ -8,20 +8,50 @@ import { YeastToggle } from "./YeastToggle";
 import { ResultsCard } from "./ResultsCard";
 import { ReadyTimeSlider } from "./ReadyTimeSlider";
 
+const STORAGE_KEY = "pizza-calc-state";
+
 type Action =
   | { type: "SET_FIELD"; field: keyof Omit<DoughState, "yeastType">; value: number }
-  | { type: "SET_YEAST"; value: YeastType };
+  | { type: "SET_YEAST"; value: YeastType }
+  | { type: "LOAD_STATE"; payload: DoughState };
 
 function reducer(state: DoughState, action: Action): DoughState {
-  if (action.type === "SET_YEAST") {
-    return { ...state, yeastType: action.value };
-  }
+  if (action.type === "LOAD_STATE") return action.payload;
+  if (action.type === "SET_YEAST") return { ...state, yeastType: action.value };
   const range = RANGES[action.field];
   return { ...state, [action.field]: clamp(action.value, range.min, range.max) };
 }
 
-export function Calculator() {
+function usePersistentDoughState() {
   const [state, dispatch] = useReducer(reducer, DEFAULTS);
+  // Tracks whether the localStorage load has completed so we never
+  // save DEFAULTS back before we've had a chance to restore stored state.
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw) as Partial<DoughState>;
+        // Merge with DEFAULTS so missing/renamed fields degrade gracefully
+        dispatch({ type: "LOAD_STATE", payload: { ...DEFAULTS, ...parsed } });
+      }
+    } catch {
+      // Corrupt storage — ignore and keep defaults
+    }
+    setReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!ready) return;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }, [state, ready]);
+
+  return [state, dispatch] as const;
+}
+
+export function Calculator() {
+  const [state, dispatch] = usePersistentDoughState();
   const { t } = useLanguage();
 
   const noFermentation = state.roomTime + state.fridgeTime <= 0;
@@ -142,8 +172,7 @@ export function Calculator() {
         <ResultsCard result={result} state={state} noFermentation={noFermentation} />
 
         <p className="mt-4 text-xs text-stone-400 leading-relaxed">
-          Yeast quantities are estimates. Real fermentation depends on flour
-          strength, actual dough temperature, and ambient conditions.
+          {t.yeastNote}
         </p>
       </div>
     </div>
