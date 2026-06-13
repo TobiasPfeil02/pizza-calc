@@ -59,6 +59,15 @@ export interface Translations {
   yeastDiagnostic: (pct: string, hours: string) => string;
   yeastNote: string;
 
+  // Presets
+  presetsSection: string;
+  presetQuick: string;
+  presetQuickSub: string;
+  preset24h: string;
+  preset24hSub: string;
+  preset48h: string;
+  preset48hSub: string;
+
   // Export
   printButton: string;
   calendarButton: string;
@@ -125,6 +134,14 @@ const en: Translations = {
   yeastNote:
     "Yeast quantities are estimates. Real fermentation depends on flour strength, actual dough temperature, and ambient conditions.",
 
+  presetsSection: "Presets",
+  presetQuick: "Same day",
+  presetQuickSub: "~8 h · no fridge",
+  preset24h: "24 h",
+  preset24hSub: "cold proof",
+  preset48h: "48 h",
+  preset48hSub: "long cold proof",
+
   printButton: "Print / Save as PDF",
   calendarButton: "Add to Calendar",
   printTitle: "Neapolitan Pizza Dough",
@@ -188,6 +205,14 @@ const de: Translations = {
     `${pct}% Frische Hefe · ${hours} h äquiv. RT-Zeit`,
   yeastNote:
     "Hefemengen sind Schätzwerte. Die tatsächliche Gärung hängt von der Mehlstärke, der Teigtemperatur und den Umgebungsbedingungen ab.",
+
+  presetsSection: "Voreinstellungen",
+  presetQuick: "Gleicher Tag",
+  presetQuickSub: "~8 h · kein Kühlschrank",
+  preset24h: "24 h",
+  preset24hSub: "Kalte Gare",
+  preset48h: "48 h",
+  preset48hSub: "Lange kalte Gare",
 
   printButton: "Drucken / Als PDF speichern",
   calendarButton: "Zum Kalender hinzufügen",

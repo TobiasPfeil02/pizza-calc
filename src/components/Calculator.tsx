@@ -9,6 +9,7 @@ import { ResultsCard } from "./ResultsCard";
 import { ReadyTimeSlider } from "./ReadyTimeSlider";
 import { ExportButtons } from "./ExportButtons";
 import { RecipePrintView } from "./RecipePrintView";
+import { PresetsBar } from "./PresetsBar";
 
 const STORAGE_KEY = "pizza-calc-state";
 
@@ -69,6 +70,11 @@ export function Calculator() {
     <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12 print:hidden">
       {/* LEFT: inputs */}
       <div className="flex flex-col gap-8">
+        <PresetsBar
+          state={state}
+          onSelect={(s) => dispatch({ type: "LOAD_STATE", payload: s })}
+        />
+
         {/* Dough */}
         <section>
           <h2 className="mb-4 text-base font-semibold uppercase tracking-wider text-stone-400">

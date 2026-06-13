@@ -58,6 +58,37 @@ export const MODEL = {
   IDY_DIVISOR: 3,
 } as const;
 
+export interface Preset {
+  key: "quick" | "24h" | "48h";
+  state: DoughState;
+}
+
+// 4 balls × 265 g · 65% hydration · 2.8% salt
+// Workflow: dough → fridge immediately → take out roomTime hours before baking
+export const PRESETS: Preset[] = [
+  {
+    key: "quick",
+    state: {
+      ballsCount: 4, ballWeight: 265, waterPercent: 65, saltPercent: 2.8,
+      roomTime: 8, roomTemp: 20, fridgeTime: 0, fridgeTemp: 4, yeastType: "IDY",
+    },
+  },
+  {
+    key: "24h",
+    state: {
+      ballsCount: 4, ballWeight: 265, waterPercent: 65, saltPercent: 2.8,
+      roomTime: 3, roomTemp: 20, fridgeTime: 21, fridgeTemp: 4, yeastType: "IDY",
+    },
+  },
+  {
+    key: "48h",
+    state: {
+      ballsCount: 4, ballWeight: 265, waterPercent: 65, saltPercent: 2.8,
+      roomTime: 3, roomTemp: 20, fridgeTime: 45, fridgeTemp: 4, yeastType: "IDY",
+    },
+  },
+];
+
 export function clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max);
 }
