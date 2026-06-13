@@ -12,7 +12,7 @@ export function FaqSection() {
           {t.faqTitle}
         </h2>
 
-        <dl className="space-y-2">
+        <div className="space-y-2">
           {t.faq.map((item, i) => (
             <details
               key={i}
@@ -39,7 +39,7 @@ export function FaqSection() {
               </div>
             </details>
           ))}
-        </dl>
+        </div>
       </div>
     </section>
   );

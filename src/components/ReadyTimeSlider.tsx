@@ -93,7 +93,7 @@ export function ReadyTimeSlider({
             type="button"
             onClick={() => onStartTimeChange(formatDatetimeLocal(now))}
             aria-label="Reset to current time"
-            className="shrink-0 text-emerald-400 hover:text-emerald-700 text-base leading-none px-1"
+            className="shrink-0 text-emerald-700 hover:text-emerald-900 text-base leading-none px-1"
           >
             ↺
           </button>
@@ -129,7 +129,7 @@ export function ReadyTimeSlider({
         aria-valuetext={formatDuration(totalHours)}
       />
 
-      <div className="flex justify-between text-xs text-emerald-500">
+      <div className="flex justify-between text-xs text-emerald-700">
         <span>{formatDuration(sliderMin)}</span>
         <span>{formatDuration(sliderMax)}</span>
       </div>
