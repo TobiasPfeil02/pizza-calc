@@ -1,8 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import { LOCALE_TAG } from "@/lib/i18n";
 import type { DoughResult, DoughState } from "@/lib/dough";
 
 interface Props {
@@ -20,14 +18,7 @@ function Row({ label, value }: { label: string; value: string }) {
 }
 
 export function RecipePrintView({ state, result }: Props) {
-  const { locale, t } = useLanguage();
-  const [printDate, setPrintDate] = useState("");
-
-  useEffect(() => {
-    setPrintDate(
-      new Date().toLocaleDateString(LOCALE_TAG[locale], { dateStyle: "long" })
-    );
-  }, [locale]);
+  const { t } = useLanguage();
 
   const yeastLabel = state.yeastType === "IDY" ? t.instantDryYeast : t.freshYeast;
   const fmt0 = (n: number) => `${Math.round(n)} g`;
@@ -37,9 +28,6 @@ export function RecipePrintView({ state, result }: Props) {
       {/* Header */}
       <div className="mb-6 border-b-2 border-black pb-4">
         <h1 className="text-2xl font-bold">{t.printTitle}</h1>
-        <p className="mt-1 text-sm text-gray-500">
-          {t.printedOn}: {printDate}
-        </p>
       </div>
 
       <div className="text-sm text-gray-500 mb-6">
@@ -100,7 +88,6 @@ export function RecipePrintView({ state, result }: Props) {
         <h2 className="mb-2 text-xs font-semibold uppercase tracking-widest text-gray-400">
           {t.instructionsTitle}
         </h2>
-        <h3 className="mb-1 text-sm font-semibold">{t.faq[0].q}</h3>
         {t.faq[0].a.split("\n\n").map((para, j) => (
           <p key={j} className={`text-xs leading-relaxed text-gray-600 ${j > 0 ? "mt-1.5" : ""}`}>
             {para}

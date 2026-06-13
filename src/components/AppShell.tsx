@@ -15,7 +15,7 @@ function AppContent() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
-      <header className="mb-10">
+      <header className="mb-10 print:hidden">
         <div className="flex items-start justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold tracking-tight text-stone-900">
@@ -43,7 +43,7 @@ function AppContent() {
       <footer className="mt-16 border-t border-stone-200 pt-6 flex items-center justify-between">
         <p className="text-xs text-stone-500">© 2026 Tobias Pfeil</p>
 
-        <div className="mt-3 flex items-center gap-2">
+        <div className="mt-3 flex items-center gap-2 print:hidden">
           <span className="text-xs text-stone-500">{t.languageLabel}:</span>
           {LOCALES.map((l) => (
             <button
