@@ -1,5 +1,7 @@
 # Neapolitan Pizza Dough Calculator
 
+**https://pizza.t-pfeil.com**
+
 A free, fully client-side web app that computes precise ingredient weights for Neapolitan pizza dough (high-heat oven, 400–500 °C), supporting two-stage fermentation (room temperature + fridge).
 
 MIT License · No telemetry, no analytics, no backend.
