@@ -3,6 +3,7 @@
 import { LanguageProvider, useLanguage } from "@/context/LanguageContext";
 import { LOCALES } from "@/lib/i18n";
 import { Calculator } from "./Calculator";
+import { FaqSection } from "./FaqSection";
 
 function AppContent() {
   const { locale, setLocale, t } = useLanguage();
@@ -31,6 +32,7 @@ function AppContent() {
 
       <main>
         <Calculator />
+        <FaqSection />
       </main>
 
       <footer className="mt-16 border-t border-stone-200 pt-6 flex items-center justify-between">
