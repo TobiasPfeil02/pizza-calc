@@ -43,7 +43,7 @@ export function SliderInput({
               const parsed = parseFloat(e.target.value);
               if (!isNaN(parsed)) onChange(clamp(parsed, min, max));
             }}
-            className="w-20 rounded border border-stone-300 px-2 py-0.5 text-right text-sm tabular-nums focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
+            className="w-20 rounded border border-stone-300 px-2 py-0.5 text-right text-sm tabular-nums focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
             aria-label={`${label} value`}
           />
           {unit && (
@@ -59,7 +59,7 @@ export function SliderInput({
         max={max}
         step={step}
         onChange={(e) => onChange(parseFloat(e.target.value))}
-        className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-stone-200 accent-orange-500"
+        className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-stone-200 accent-emerald-600"
         aria-valuemin={min}
         aria-valuemax={max}
         aria-valuenow={value}

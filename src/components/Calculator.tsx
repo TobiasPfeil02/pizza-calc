@@ -7,6 +7,8 @@ import { SliderInput } from "./SliderInput";
 import { YeastToggle } from "./YeastToggle";
 import { ResultsCard } from "./ResultsCard";
 import { ReadyTimeSlider } from "./ReadyTimeSlider";
+import { ExportButtons } from "./ExportButtons";
+import { RecipePrintView } from "./RecipePrintView";
 
 const STORAGE_KEY = "pizza-calc-state";
 
@@ -62,7 +64,9 @@ export function Calculator() {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12">
+    <>
+    <RecipePrintView state={state} result={result} />
+    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12 print:hidden">
       {/* LEFT: inputs */}
       <div className="flex flex-col gap-8">
         {/* Dough */}
@@ -170,11 +174,12 @@ export function Calculator() {
       {/* RIGHT: sticky results */}
       <div className="md:sticky md:top-8 md:self-start">
         <ResultsCard result={result} state={state} noFermentation={noFermentation} />
-
+        <ExportButtons state={state} result={result} />
         <p className="mt-4 text-xs text-stone-400 leading-relaxed">
           {t.yeastNote}
         </p>
       </div>
     </div>
+    </>
   );
 }

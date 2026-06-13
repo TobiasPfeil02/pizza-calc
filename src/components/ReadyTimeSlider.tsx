@@ -57,15 +57,15 @@ export function ReadyTimeSlider({ roomTime, fridgeTime, onFridgeTimeChange }: Re
   }
 
   return (
-    <div className="rounded-xl border border-orange-200 bg-orange-50 px-4 py-3 flex flex-col gap-2">
+    <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 flex flex-col gap-2">
       <div className="flex flex-wrap items-baseline justify-between gap-x-2">
-        <label htmlFor="readyTime" className="text-sm font-semibold text-orange-900">
+        <label htmlFor="readyTime" className="text-sm font-semibold text-emerald-900">
           {t.readyIn}
         </label>
-        <span className="text-sm tabular-nums text-orange-900">
+        <span className="text-sm tabular-nums text-emerald-900">
           <span className="font-semibold">{formatDuration(totalHours)}</span>
           {readyDate && (
-            <span className="ml-1 text-orange-600">— {formatReadyTime(readyDate)}</span>
+            <span className="ml-1 text-emerald-700">— {formatReadyTime(readyDate)}</span>
           )}
         </span>
       </div>
@@ -78,7 +78,7 @@ export function ReadyTimeSlider({ roomTime, fridgeTime, onFridgeTimeChange }: Re
         step={0.5}
         value={totalHours}
         onChange={(e) => handleChange(parseFloat(e.target.value))}
-        className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-orange-200 accent-orange-500"
+        className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-emerald-200 accent-emerald-600"
         aria-label={t.timeUntilReadyAria}
         aria-valuemin={sliderMin}
         aria-valuemax={sliderMax}
@@ -86,12 +86,12 @@ export function ReadyTimeSlider({ roomTime, fridgeTime, onFridgeTimeChange }: Re
         aria-valuetext={formatDuration(totalHours)}
       />
 
-      <div className="flex justify-between text-xs text-orange-400">
+      <div className="flex justify-between text-xs text-emerald-500">
         <span>{formatDuration(sliderMin)}</span>
         <span>{formatDuration(sliderMax)}</span>
       </div>
 
-      <p className="text-xs text-orange-500">{t.prepNote}</p>
+      <p className="text-xs text-emerald-600">{t.prepNote}</p>
     </div>
   );
 }

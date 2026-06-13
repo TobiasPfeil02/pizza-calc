@@ -72,8 +72,8 @@ export function ResultsCard({ result, state, noFermentation }: ResultsCardProps)
         </span>
       </div>
 
-      <div className="mt-4 rounded-lg bg-orange-50 px-4 py-3">
-        <p className="text-xs text-orange-800">
+      <div className="mt-4 rounded-lg bg-emerald-50 px-4 py-3">
+        <p className="text-xs text-emerald-800">
           <strong>{t.hydrationLabel}:</strong>{" "}
           {state.waterPercent}% &nbsp;·&nbsp;
           <strong>{t.saltLabel}:</strong> {state.saltPercent}%

@@ -59,6 +59,19 @@ export interface Translations {
   yeastDiagnostic: (pct: string, hours: string) => string;
   yeastNote: string;
 
+  // Export
+  printButton: string;
+  calendarButton: string;
+  printTitle: string;
+  printedOn: string;
+  fermentationSchedule: string;
+
+  // ICS event summaries
+  icsEvtStart: string;
+  icsEvtFridge: string;
+  icsEvtTakeOut: string;
+  icsEvtReady: string;
+
   // Footer
   footerNote: string;
   languageLabel: string;
@@ -112,6 +125,17 @@ const en: Translations = {
   yeastNote:
     "Yeast quantities are estimates. Real fermentation depends on flour strength, actual dough temperature, and ambient conditions.",
 
+  printButton: "Print / Save as PDF",
+  calendarButton: "Add to Calendar",
+  printTitle: "Neapolitan Pizza Dough",
+  printedOn: "Printed",
+  fermentationSchedule: "Fermentation Schedule",
+
+  icsEvtStart: "Start pizza dough 🍕",
+  icsEvtFridge: "Dough → fridge",
+  icsEvtTakeOut: "Take dough out of fridge",
+  icsEvtReady: "Pizza time! 🍕",
+
   footerNote:
     "Open-source · MIT license · No telemetry, no cookies, fully client-side. Yeast model uses a Q10 temperature coefficient and calibrated exponential decay curve.",
   languageLabel: "Language",
@@ -145,14 +169,14 @@ const de: Translations = {
 
   yeastType: "Hefetyp",
   instantDry: "Trockenhefe",
-  freshCompressed: "Frischhefe",
+  freshCompressed: "Frische Hefe",
 
   ingredients: "Zutaten",
   flour: "Mehl",
   water: "Wasser",
   saltResult: "Salz",
   instantDryYeast: "Trockenhefe",
-  freshYeast: "Frischhefe",
+  freshYeast: "Frische Hefe",
   totalDough: "Teig gesamt",
   hydrationLabel: "Hydration",
   saltLabel: "Salz",
@@ -161,9 +185,20 @@ const de: Translations = {
   noFermentationWarning:
     "Bitte Gärzeit hinzufügen — Raumtemperaturzeit und Kühlschrankzeit sind beide null.",
   yeastDiagnostic: (pct, hours) =>
-    `${pct}% Frischhefe · ${hours} h äquiv. RT-Zeit`,
+    `${pct}% Frische Hefe · ${hours} h äquiv. RT-Zeit`,
   yeastNote:
     "Hefemengen sind Schätzwerte. Die tatsächliche Gärung hängt von der Mehlstärke, der Teigtemperatur und den Umgebungsbedingungen ab.",
+
+  printButton: "Drucken / Als PDF speichern",
+  calendarButton: "Zum Kalender hinzufügen",
+  printTitle: "Neapolitanischer Pizzateig",
+  printedOn: "Gedruckt am",
+  fermentationSchedule: "Gärführung",
+
+  icsEvtStart: "Pizzateig ansetzen 🍕",
+  icsEvtFridge: "Teig → Kühlschrank",
+  icsEvtTakeOut: "Teig aus Kühlschrank nehmen",
+  icsEvtReady: "Pizza-Zeit! 🍕",
 
   footerNote:
     "Open-Source · MIT-Lizenz · Keine Telemetrie, keine Cookies, vollständig clientseitig. Hefemodell mit Q10-Temperaturkoeffizient und kalibrierter Exponentialfunktion.",
