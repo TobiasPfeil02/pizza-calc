@@ -1,3 +1,6 @@
+"use client";
+
+import { useLanguage } from "@/context/LanguageContext";
 import type { DoughResult, DoughState } from "@/lib/dough";
 
 interface ResultsCardProps {
@@ -6,15 +9,7 @@ interface ResultsCardProps {
   noFermentation: boolean;
 }
 
-function Row({
-  label,
-  value,
-  sub,
-}: {
-  label: string;
-  value: string;
-  sub?: string;
-}) {
+function Row({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
     <div className="flex flex-col gap-0.5 py-3 border-b border-stone-100 last:border-0">
       <div className="flex items-baseline justify-between">
@@ -29,18 +24,23 @@ function Row({
 }
 
 export function ResultsCard({ result, state, noFermentation }: ResultsCardProps) {
-  const fmt0 = (n: number) =>
-    isFinite(n) ? `${Math.round(n)} g` : "0 g";
+  const { t } = useLanguage();
 
-  const yeastLabel = state.yeastType === "IDY" ? "Instant Dry Yeast" : "Fresh Yeast";
-  const yeastValue = isFinite(result.yeastWeight) && result.yeastWeight > 0
-    ? `${result.yeastWeight.toFixed(2)} g`
-    : "0.00 g";
+  const fmt0 = (n: number) => (isFinite(n) ? `${Math.round(n)} g` : "0 g");
+
+  const yeastLabel = state.yeastType === "IDY" ? t.instantDryYeast : t.freshYeast;
+  const yeastValue =
+    isFinite(result.yeastWeight) && result.yeastWeight > 0
+      ? `${result.yeastWeight.toFixed(2)} g`
+      : "0.00 g";
 
   const yeastDiagnostic = noFermentation
-    ? "Add some fermentation time"
+    ? t.noFermentationHint
     : isFinite(result.freshYeastPercent) && result.freshYeastPercent > 0
-    ? `${result.freshYeastPercent.toFixed(3)}% fresh yeast · ${result.eqHours.toFixed(1)} h eq. room time`
+    ? t.yeastDiagnostic(
+        result.freshYeastPercent.toFixed(3),
+        result.eqHours.toFixed(1)
+      )
     : null;
 
   const totalWeight = Math.round(
@@ -50,15 +50,15 @@ export function ResultsCard({ result, state, noFermentation }: ResultsCardProps)
   return (
     <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
       <div className="mb-4 flex items-baseline justify-between">
-        <h2 className="text-lg font-semibold text-stone-900">Ingredients</h2>
+        <h2 className="text-lg font-semibold text-stone-900">{t.ingredients}</h2>
         <span className="text-sm text-stone-400 tabular-nums">
           {state.ballsCount} × {state.ballWeight} g
         </span>
       </div>
 
-      <Row label="Flour" value={fmt0(result.flourWeight)} />
-      <Row label="Water" value={fmt0(result.waterWeight)} />
-      <Row label="Salt" value={fmt0(result.saltWeight)} />
+      <Row label={t.flour} value={fmt0(result.flourWeight)} />
+      <Row label={t.water} value={fmt0(result.waterWeight)} />
+      <Row label={t.saltResult} value={fmt0(result.saltWeight)} />
       <Row
         label={yeastLabel}
         value={yeastValue}
@@ -66,7 +66,7 @@ export function ResultsCard({ result, state, noFermentation }: ResultsCardProps)
       />
 
       <div className="mt-4 flex items-baseline justify-between rounded-lg bg-stone-50 px-4 py-3">
-        <span className="text-sm font-medium text-stone-500">Total dough</span>
+        <span className="text-sm font-medium text-stone-500">{t.totalDough}</span>
         <span className="tabular-nums font-semibold text-stone-700">
           {isFinite(totalWeight) && totalWeight > 0 ? `${totalWeight} g` : "—"}
         </span>
@@ -74,9 +74,9 @@ export function ResultsCard({ result, state, noFermentation }: ResultsCardProps)
 
       <div className="mt-4 rounded-lg bg-orange-50 px-4 py-3">
         <p className="text-xs text-orange-800">
-          <strong>Hydration:</strong>{" "}
+          <strong>{t.hydrationLabel}:</strong>{" "}
           {state.waterPercent}% &nbsp;·&nbsp;
-          <strong>Salt:</strong> {state.saltPercent}%
+          <strong>{t.saltLabel}:</strong> {state.saltPercent}%
         </p>
       </div>
     </div>

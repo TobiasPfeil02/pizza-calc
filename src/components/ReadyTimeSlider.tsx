@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { clamp, RANGES } from "@/lib/dough";
+import { useLanguage } from "@/context/LanguageContext";
+import { LOCALE_TAG } from "@/lib/i18n";
 
-const PREP_HOURS = 45 / 60; // 45 min preparation offset
+const PREP_HOURS = 45 / 60;
 
 interface ReadyTimeSliderProps {
   roomTime: number;
@@ -19,35 +21,35 @@ function formatDuration(hours: number): string {
   return `${h}h ${m}m`;
 }
 
-function formatReadyTime(date: Date): string {
-  const now = new Date();
-  const timeStr = date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-
-  const todayStr = now.toDateString();
-  const tomorrow = new Date(now);
-  tomorrow.setDate(tomorrow.getDate() + 1);
-
-  if (date.toDateString() === todayStr) return `today at ${timeStr}`;
-  if (date.toDateString() === tomorrow.toDateString()) return `tomorrow at ${timeStr}`;
-  return (
-    date.toLocaleDateString([], { weekday: "short", month: "short", day: "numeric" }) +
-    ` at ${timeStr}`
-  );
-}
-
 export function ReadyTimeSlider({ roomTime, fridgeTime, onFridgeTimeChange }: ReadyTimeSliderProps) {
   const [now, setNow] = useState<Date | null>(null);
+  const { locale, t } = useLanguage();
 
-  // Populate on the client only to avoid SSR/hydration mismatch
   useEffect(() => {
     setNow(new Date());
   }, []);
 
+  const tag = LOCALE_TAG[locale];
   const totalHours = PREP_HOURS + roomTime + fridgeTime;
-  const sliderMin = PREP_HOURS + roomTime; // fridgeTime = 0
-  const sliderMax = PREP_HOURS + roomTime + RANGES.fridgeTime.max; // fridgeTime = 72
+  const sliderMin = PREP_HOURS + roomTime;
+  const sliderMax = PREP_HOURS + roomTime + RANGES.fridgeTime.max;
 
   const readyDate = now ? new Date(now.getTime() + totalHours * 3_600_000) : null;
+
+  function formatReadyTime(date: Date): string {
+    const timeStr = date.toLocaleTimeString(tag, { hour: "2-digit", minute: "2-digit" });
+    const ref = new Date(); // fresh "now" inside render
+    const tomorrow = new Date(ref);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    if (date.toDateString() === ref.toDateString())
+      return `${t.today} ${t.at} ${timeStr}`;
+    if (date.toDateString() === tomorrow.toDateString())
+      return `${t.tomorrow} ${t.at} ${timeStr}`;
+    return (
+      date.toLocaleDateString(tag, { weekday: "short", month: "short", day: "numeric" }) +
+      ` ${t.at} ${timeStr}`
+    );
+  }
 
   function handleChange(newTotal: number) {
     const raw = newTotal - PREP_HOURS - roomTime;
@@ -58,7 +60,7 @@ export function ReadyTimeSlider({ roomTime, fridgeTime, onFridgeTimeChange }: Re
     <div className="rounded-xl border border-orange-200 bg-orange-50 px-4 py-3 flex flex-col gap-2">
       <div className="flex flex-wrap items-baseline justify-between gap-x-2">
         <label htmlFor="readyTime" className="text-sm font-semibold text-orange-900">
-          Ready in
+          {t.readyIn}
         </label>
         <span className="text-sm tabular-nums text-orange-900">
           <span className="font-semibold">{formatDuration(totalHours)}</span>
@@ -77,7 +79,7 @@ export function ReadyTimeSlider({ roomTime, fridgeTime, onFridgeTimeChange }: Re
         value={totalHours}
         onChange={(e) => handleChange(parseFloat(e.target.value))}
         className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-orange-200 accent-orange-500"
-        aria-label="Time until dough is ready"
+        aria-label={t.timeUntilReadyAria}
         aria-valuemin={sliderMin}
         aria-valuemax={sliderMax}
         aria-valuenow={totalHours}
@@ -89,9 +91,7 @@ export function ReadyTimeSlider({ roomTime, fridgeTime, onFridgeTimeChange }: Re
         <span>{formatDuration(sliderMax)}</span>
       </div>
 
-      <p className="text-xs text-orange-500">
-        Includes 45 min preparation · adjusts fridge time
-      </p>
+      <p className="text-xs text-orange-500">{t.prepNote}</p>
     </div>
   );
 }

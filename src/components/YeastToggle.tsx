@@ -1,5 +1,6 @@
 "use client";
 
+import { useLanguage } from "@/context/LanguageContext";
 import type { YeastType } from "@/lib/dough";
 
 interface YeastToggleProps {
@@ -7,22 +8,24 @@ interface YeastToggleProps {
   onChange: (type: YeastType) => void;
 }
 
-const OPTIONS: { value: YeastType; label: string; desc: string }[] = [
-  { value: "IDY", label: "Instant Dry", desc: "IDY" },
-  { value: "CY", label: "Fresh / Compressed", desc: "Fresh" },
-];
-
 export function YeastToggle({ value, onChange }: YeastToggleProps) {
+  const { t } = useLanguage();
+
+  const options: { value: YeastType; label: string }[] = [
+    { value: "IDY", label: t.instantDry },
+    { value: "CY", label: t.freshCompressed },
+  ];
+
   return (
     <fieldset>
       <legend className="mb-2 text-sm font-medium text-stone-700">
-        Yeast type
+        {t.yeastType}
       </legend>
       <div
         className="flex rounded-lg border border-stone-300 overflow-hidden"
         role="radiogroup"
       >
-        {OPTIONS.map((opt) => (
+        {options.map((opt) => (
           <label
             key={opt.value}
             className={`flex-1 cursor-pointer select-none text-center py-2 px-3 text-sm transition-colors ${

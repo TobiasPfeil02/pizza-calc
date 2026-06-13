@@ -2,6 +2,7 @@
 
 import { useReducer } from "react";
 import { calculateDough, clamp, DEFAULTS, RANGES, type DoughState, type YeastType } from "@/lib/dough";
+import { useLanguage } from "@/context/LanguageContext";
 import { SliderInput } from "./SliderInput";
 import { YeastToggle } from "./YeastToggle";
 import { ResultsCard } from "./ResultsCard";
@@ -21,6 +22,7 @@ function reducer(state: DoughState, action: Action): DoughState {
 
 export function Calculator() {
   const [state, dispatch] = useReducer(reducer, DEFAULTS);
+  const { t } = useLanguage();
 
   const noFermentation = state.roomTime + state.fridgeTime <= 0;
   const result = calculateDough(state);
@@ -36,20 +38,20 @@ export function Calculator() {
         {/* Dough */}
         <section>
           <h2 className="mb-4 text-base font-semibold uppercase tracking-wider text-stone-400">
-            Dough
+            {t.doughSection}
           </h2>
           <div className="flex flex-col gap-6">
             <SliderInput
               id="ballsCount"
-              label="Number of balls"
+              label={t.numberOfBalls}
               value={state.ballsCount}
               {...RANGES.ballsCount}
-              unit="balls"
+              unit={t.unitBalls}
               onChange={setField("ballsCount")}
             />
             <SliderInput
               id="ballWeight"
-              label="Ball weight"
+              label={t.ballWeight}
               value={state.ballWeight}
               {...RANGES.ballWeight}
               unit="g"
@@ -57,7 +59,7 @@ export function Calculator() {
             />
             <SliderInput
               id="waterPercent"
-              label="Hydration"
+              label={t.hydration}
               value={state.waterPercent}
               {...RANGES.waterPercent}
               unit="%"
@@ -65,7 +67,7 @@ export function Calculator() {
             />
             <SliderInput
               id="saltPercent"
-              label="Salt"
+              label={t.saltInput}
               value={state.saltPercent}
               {...RANGES.saltPercent}
               unit="%"
@@ -77,7 +79,7 @@ export function Calculator() {
         {/* Fermentation */}
         <section>
           <h2 className="mb-4 text-base font-semibold uppercase tracking-wider text-stone-400">
-            Fermentation
+            {t.fermentationSection}
           </h2>
           <div className="flex flex-col gap-6">
             <ReadyTimeSlider
@@ -87,7 +89,7 @@ export function Calculator() {
             />
             <SliderInput
               id="roomTime"
-              label="Room temperature time"
+              label={t.roomTime}
               value={state.roomTime}
               {...RANGES.roomTime}
               unit="h"
@@ -95,7 +97,7 @@ export function Calculator() {
             />
             <SliderInput
               id="roomTemp"
-              label="Room temperature"
+              label={t.roomTemp}
               value={state.roomTemp}
               {...RANGES.roomTemp}
               unit="°C"
@@ -103,7 +105,7 @@ export function Calculator() {
             />
             <SliderInput
               id="fridgeTime"
-              label="Fridge time"
+              label={t.fridgeTime}
               value={state.fridgeTime}
               {...RANGES.fridgeTime}
               unit="h"
@@ -111,7 +113,7 @@ export function Calculator() {
             />
             <SliderInput
               id="fridgeTemp"
-              label="Fridge temperature"
+              label={t.fridgeTemp}
               value={state.fridgeTemp}
               {...RANGES.fridgeTemp}
               unit="°C"
@@ -130,7 +132,7 @@ export function Calculator() {
 
         {noFermentation && (
           <p className="rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-700">
-            Add some fermentation time — both room time and fridge time are zero.
+            {t.noFermentationWarning}
           </p>
         )}
       </div>
