@@ -34,9 +34,11 @@ export function ExportButtons({ state, result }: Props) {
       `${state.yeastType === "IDY" ? t.instantDryYeast : t.freshYeast}: ${result.yeastWeight.toFixed(2)} g`,
     ].join("\n");
 
+    // Workflow: make dough → fridge immediately → take out roomTime before baking → bake
+    // Timeline: T+0 (start+fridge) · T+fridgeTime (take out) · T+fridgeTime+roomTime+prep (ready)
     const events: IcsEvent[] = [];
 
-    // Event 1: Start dough
+    // Event 1: Start dough — goes into fridge straight away
     events.push({
       uid: uid(),
       start: now,
@@ -45,20 +47,9 @@ export function ExportButtons({ state, result }: Props) {
       description: ingredientDesc,
     });
 
-    // Event 2: Move to fridge (only if there is a room-temp phase before the fridge)
-    if (state.roomTime > 0 && state.fridgeTime > 0) {
-      const fridgeStart = addHours(now, state.roomTime);
-      events.push({
-        uid: uid(),
-        start: fridgeStart,
-        end: new Date(fridgeStart.getTime() + EVENT_DURATION_MS),
-        summary: t.icsEvtFridge,
-      });
-    }
-
-    // Event 3: Take out of fridge
+    // Event 2: Take out of fridge — roomTime hours before baking starts
     if (state.fridgeTime > 0) {
-      const takeOut = addHours(now, state.roomTime + state.fridgeTime);
+      const takeOut = addHours(now, state.fridgeTime);
       events.push({
         uid: uid(),
         start: takeOut,
@@ -67,8 +58,8 @@ export function ExportButtons({ state, result }: Props) {
       });
     }
 
-    // Event 4: Pizza time (ready = now + roomTime + fridgeTime + prep)
-    const readyTime = addHours(now, state.roomTime + state.fridgeTime + PREP_HOURS);
+    // Event 3: Pizza time — after room-temp rest + 45 min prep
+    const readyTime = addHours(now, state.fridgeTime + state.roomTime + PREP_HOURS);
     events.push({
       uid: uid(),
       start: readyTime,
