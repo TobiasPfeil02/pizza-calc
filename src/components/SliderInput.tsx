@@ -65,7 +65,7 @@ export function SliderInput({
         aria-valuenow={value}
         aria-valuetext={`${value.toFixed(decimals)}${unit ? " " + unit : ""}`}
       />
-      <div className="flex justify-between text-xs text-stone-400">
+      <div className="flex justify-between text-xs text-stone-500">
         <span>{min}</span>
         <span>{max}</span>
       </div>

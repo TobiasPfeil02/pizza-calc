@@ -34,7 +34,7 @@ export function PresetsBar({ state, onSelect }: Props) {
 
   return (
     <section>
-      <h2 className="mb-3 text-base font-semibold uppercase tracking-wider text-stone-400">
+      <h2 className="mb-3 text-base font-semibold uppercase tracking-wider text-stone-500">
         {t.presetsSection}
       </h2>
       <div className="grid grid-cols-3 gap-2">
@@ -54,7 +54,7 @@ export function PresetsBar({ state, onSelect }: Props) {
               <div className={`text-sm font-semibold ${active ? "text-emerald-800" : "text-stone-700"}`}>
                 {main}
               </div>
-              <div className="mt-0.5 text-xs text-stone-400">{sub}</div>
+              <div className="mt-0.5 text-xs text-stone-500">{sub}</div>
             </button>
           );
         })}

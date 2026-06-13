@@ -18,7 +18,7 @@ function Row({ label, value, sub }: { label: string; value: string; sub?: string
           {value}
         </span>
       </div>
-      {sub && <p className="text-xs text-stone-400 text-right">{sub}</p>}
+      {sub && <p className="text-xs text-stone-500 text-right">{sub}</p>}
     </div>
   );
 }
@@ -51,7 +51,7 @@ export function ResultsCard({ result, state, noFermentation }: ResultsCardProps)
     <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
       <div className="mb-4 flex items-baseline justify-between">
         <h2 className="text-lg font-semibold text-stone-900">{t.ingredients}</h2>
-        <span className="text-sm text-stone-400 tabular-nums">
+        <span className="text-sm text-stone-500 tabular-nums">
           {state.ballsCount} × {state.ballWeight} g
         </span>
       </div>

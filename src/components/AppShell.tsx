@@ -41,10 +41,10 @@ function AppContent() {
       </main>
 
       <footer className="mt-16 border-t border-stone-200 pt-6 flex items-center justify-between">
-        <p className="text-xs text-stone-400">© 2026 Tobias Pfeil</p>
+        <p className="text-xs text-stone-500">© 2026 Tobias Pfeil</p>
 
         <div className="mt-3 flex items-center gap-2">
-          <span className="text-xs text-stone-400">{t.languageLabel}:</span>
+          <span className="text-xs text-stone-500">{t.languageLabel}:</span>
           {LOCALES.map((l) => (
             <button
               key={l}
@@ -53,7 +53,7 @@ function AppContent() {
               className={`rounded px-2 py-0.5 text-xs font-medium transition-colors ${
                 locale === l
                   ? "bg-stone-800 text-white"
-                  : "text-stone-400 hover:text-stone-700"
+                  : "text-stone-500 hover:text-stone-700"
               }`}
             >
               {l.toUpperCase()}

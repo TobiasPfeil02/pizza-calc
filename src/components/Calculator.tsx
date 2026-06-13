@@ -106,7 +106,7 @@ export function Calculator() {
 
         {/* Dough */}
         <section>
-          <h2 className="mb-4 text-base font-semibold uppercase tracking-wider text-stone-400">
+          <h2 className="mb-4 text-base font-semibold uppercase tracking-wider text-stone-500">
             {t.doughSection}
           </h2>
           <div className="flex flex-col gap-6">
@@ -147,7 +147,7 @@ export function Calculator() {
 
         {/* Fermentation */}
         <section>
-          <h2 className="mb-4 text-base font-semibold uppercase tracking-wider text-stone-400">
+          <h2 className="mb-4 text-base font-semibold uppercase tracking-wider text-stone-500">
             {t.fermentationSection}
           </h2>
           <div className="flex flex-col gap-6">
@@ -212,7 +212,7 @@ export function Calculator() {
       <div className="md:sticky md:top-8 md:self-start">
         <ResultsCard result={result} state={state} noFermentation={noFermentation} />
         <ExportButtons state={state} result={result} startTime={startTime} />
-        <p className="mt-4 text-xs text-stone-400 leading-relaxed">
+        <p className="mt-4 text-xs text-stone-500 leading-relaxed">
           {t.yeastNote}
         </p>
       </div>

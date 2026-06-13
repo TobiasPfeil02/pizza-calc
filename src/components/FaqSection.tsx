@@ -22,7 +22,7 @@ export function FaqSection() {
                 <span>{item.q}</span>
                 {/* chevron rotates when open */}
                 <svg
-                  className="h-4 w-4 shrink-0 text-stone-400 transition-transform duration-200 group-open:rotate-180 group-open:text-emerald-600"
+                  className="h-4 w-4 shrink-0 text-stone-500 transition-transform duration-200 group-open:rotate-180 group-open:text-emerald-600"
                   fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
                   aria-hidden="true"
                 >
