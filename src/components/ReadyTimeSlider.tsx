@@ -134,7 +134,7 @@ export function ReadyTimeSlider({
         <span>{formatDuration(sliderMax)}</span>
       </div>
 
-      <p className="text-xs text-emerald-600">{t.prepNote}</p>
+      <p className="text-xs text-emerald-700">{t.prepNote}</p>
     </div>
   );
 }

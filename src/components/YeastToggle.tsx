@@ -30,7 +30,7 @@ export function YeastToggle({ value, onChange }: YeastToggleProps) {
             key={opt.value}
             className={`flex-1 cursor-pointer select-none text-center py-2 px-3 text-sm transition-colors ${
               value === opt.value
-                ? "bg-emerald-600 text-white font-medium"
+                ? "bg-emerald-700 text-white font-medium"
                 : "bg-white text-stone-600 hover:bg-stone-50"
             }`}
           >
