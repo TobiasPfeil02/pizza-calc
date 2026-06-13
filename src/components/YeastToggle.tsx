@@ -12,8 +12,8 @@ export function YeastToggle({ value, onChange }: YeastToggleProps) {
   const { t } = useLanguage();
 
   const options: { value: YeastType; label: string }[] = [
-    { value: "IDY", label: t.instantDry },
     { value: "CY", label: t.freshCompressed },
+    { value: "IDY", label: t.instantDry },
   ];
 
   return (

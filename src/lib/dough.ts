@@ -32,7 +32,7 @@ export const DEFAULTS: DoughState = {
   roomTemp: 20,
   fridgeTime: 24,
   fridgeTemp: 4,
-  yeastType: "IDY",
+  yeastType: "CY",
 };
 
 export const RANGES = {
@@ -70,21 +70,21 @@ export const PRESETS: Preset[] = [
     key: "quick",
     state: {
       ballsCount: 4, ballWeight: 265, waterPercent: 65, saltPercent: 2.8,
-      roomTime: 8, roomTemp: 20, fridgeTime: 0, fridgeTemp: 4, yeastType: "IDY",
+      roomTime: 8, roomTemp: 20, fridgeTime: 0, fridgeTemp: 4, yeastType: "CY",
     },
   },
   {
     key: "24h",
     state: {
       ballsCount: 4, ballWeight: 265, waterPercent: 65, saltPercent: 2.8,
-      roomTime: 3, roomTemp: 20, fridgeTime: 21, fridgeTemp: 4, yeastType: "IDY",
+      roomTime: 3, roomTemp: 20, fridgeTime: 21, fridgeTemp: 4, yeastType: "CY",
     },
   },
   {
     key: "48h",
     state: {
       ballsCount: 4, ballWeight: 265, waterPercent: 65, saltPercent: 2.8,
-      roomTime: 3, roomTemp: 20, fridgeTime: 45, fridgeTemp: 4, yeastType: "IDY",
+      roomTime: 3, roomTemp: 20, fridgeTime: 45, fridgeTemp: 4, yeastType: "CY",
     },
   },
 ];

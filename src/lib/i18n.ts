@@ -92,7 +92,7 @@ export interface Translations {
 }
 
 const en: Translations = {
-  appTitle: "🍕 Pizza Dough Calculator",
+  appTitle: "Pizza Dough Calculator",
   appDescription:
     "Precise ingredient weights for Neapolitan pizza — two-stage fermentation, baker's percentages, Q10 yeast model.",
 
@@ -193,7 +193,7 @@ const en: Translations = {
 };
 
 const de: Translations = {
-  appTitle: "🍕 Pizza-Teig-Rechner",
+  appTitle: "Pizza-Teig-Rechner",
   appDescription:
     "Präzise Zutatenmengen für neapolitanischen Pizzateig — zweistufige Gärführung, Bäckerprozent, Q10-Hefemodell.",
 

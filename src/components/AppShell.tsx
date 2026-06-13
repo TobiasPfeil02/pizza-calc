@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { LanguageProvider, useLanguage } from "@/context/LanguageContext";
 import { LOCALES } from "@/lib/i18n";
 import { Calculator } from "./Calculator";
@@ -7,6 +8,10 @@ import { FaqSection } from "./FaqSection";
 
 function AppContent() {
   const { locale, setLocale, t } = useLanguage();
+
+  useEffect(() => {
+    document.title = t.appTitle;
+  }, [t.appTitle]);
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
